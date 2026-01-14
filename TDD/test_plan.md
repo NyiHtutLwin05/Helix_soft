@@ -3,11 +3,14 @@
 ## Test-Driven Development Approach
 
 ### Phase 1: RED (Writing failing tests)
-1. **Test Filename Validation**
+
+1. \*_Test Filename Validation_
+
    - Test valid filename pattern
    - Test invalid filename patterns
 
 2. **Test CSV Content Validation**
+
    - Test valid CSV structure
    - Test invalid headers
    - Test data type validation
@@ -17,11 +20,13 @@
    - Test error logging format
 
 ### Phase 2: GREEN (Making tests pass)
+
 - Implement minimum code to pass tests
 - Use mock data for API calls
 - Focus on core validation logic
 
 ### Phase 3: REFACTOR (Improving code)
+
 - Improve error handling
 - Optimize validation logic
 - Add more comprehensive test cases
