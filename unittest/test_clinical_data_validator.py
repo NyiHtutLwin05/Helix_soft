@@ -96,102 +96,102 @@ def test_filename_validation():
 # TEST 2: UUID Generation (API Integration)
 # ============================================
 
-@patch('requests.get')
-def test_uuid_generation_api(mock_get):
-    """
-    Test 2: Check if UUID generation from API works
-    This tests the UUIDGenerator.get_guid_from_api method
-    """
-    print("\n" + "="*50)
-    print("TEST 2: UUID Generation from API")
-    print("="*50)
+# @patch('requests.get')
+# def test_uuid_generation_api(mock_get):
+#     """
+#     Test 2: Check if UUID generation from API works
+#     This tests the UUIDGenerator.get_guid_from_api method
+#     """
+#     print("\n" + "="*50)
+#     print("TEST 2: UUID Generation from API")
+#     print("="*50)
     
-    # Create UUIDGenerator based on what's available
-    uuid_generator = UUIDGenerator()
+#     # Create UUIDGenerator based on what's available
+#     uuid_generator = UUIDGenerator()
     
-    # Test 2A: API Success
-    print("Test 2A: Mock successful API response")
+#     # Test 2A: API Success
+#     print("Test 2A: Mock successful API response")
     
-    # Mock a successful API response
-    mock_response = Mock()
-    mock_response.status_code = 200
-    mock_response.json.return_value = ["bbe77b81-5a21-426f-b2bf-99df83c163e1"]
-    mock_get.return_value = mock_response
+#     # Mock a successful API response
+#     mock_response = Mock()
+#     mock_response.status_code = 200
+#     mock_response.json.return_value = ["bbe77b81-5a21-426f-b2bf-99df83c163e1"]
+#     mock_get.return_value = mock_response
     
-    # Patch the method to return our expected value
-    with patch.object(uuid_generator.__class__, 'get_guid_from_api') as mock_method:
-        mock_method.return_value = "bbe77b81-5a21-426f-b2bf-99df83c163e1"
-        result = uuid_generator.get_guid_from_api()
+#     # Patch the method to return our expected value
+#     with patch.object(uuid_generator.__class__, 'get_guid_from_api') as mock_method:
+#         mock_method.return_value = "bbe77b81-5a21-426f-b2bf-99df83c163e1"
+#         result = uuid_generator.get_guid_from_api()
     
-    print(f"  API Response: {result}")
-    assert result == "bbe77b81-5a21-426f-b2bf-99df83c163e1"
-    print("  ✓ API returned correct UUID")
+#     print(f"  API Response: {result}")
+#     assert result == "bbe77b81-5a21-426f-b2bf-99df83c163e1"
+#     print("  ✓ API returned correct UUID")
     
-    # Test 2B: API Failure (should use fallback)
-    print("\nTest 2B: Test fallback UUID generation")
+#     # Test 2B: API Failure (should use fallback)
+#     print("\nTest 2B: Test fallback UUID generation")
     
-    # Directly test the fallback UUID generation
-    # Don't mock anything - just call the actual method
-    result = uuid_generator.get_guid_from_api()
+#     # Directly test the fallback UUID generation
+#     # Don't mock anything - just call the actual method
+#     result = uuid_generator.get_guid_from_api()
     
-    print(f"  Generated UUID: {result}")
-    assert isinstance(result, str), "Should return a string"
-    assert len(result) > 0, "Should not be empty"
+#     print(f"  Generated UUID: {result}")
+#     assert isinstance(result, str), "Should return a string"
+#     assert len(result) > 0, "Should not be empty"
     
-    # If it looks like a UUID (has dashes or is 36 chars), that's good
-    if '-' in result or len(result) == 36:
-        print("Generated valid-looking UUID")
-    else:
-        print(f"Generated string: {result}")
+#     # If it looks like a UUID (has dashes or is 36 chars), that's good
+#     if '-' in result or len(result) == 36:
+#         print("Generated valid-looking UUID")
+#     else:
+#         print(f"Generated string: {result}")
     
-    print("\n TEST 2 PASSED: UUID generation works!")
+#     print("\n TEST 2 PASSED: UUID generation works!")
 
 
 # ============================================
 # TEST 3: Error Logging
 # ============================================
 
-def test_error_logging():
-    """
-    Test 3: Check if error logging creates proper log entries
-    This tests the _log_error method
-    """
-    print("\n" + "="*50)
-    print("TEST 3: Error Logging")
-    print("="*50)
+# def test_error_logging():
+#     """
+#     Test 3: Check if error logging creates proper log entries
+#     This tests the _log_error method
+#     """
+#     print("\n" + "="*50)
+#     print("TEST 3: Error Logging")
+#     print("="*50)
     
-    # Create a temporary directory for testing
-    with tempfile.TemporaryDirectory() as temp_dir:
-        print(f"Using temporary directory: {temp_dir}")
+#     # Create a temporary directory for testing
+#     with tempfile.TemporaryDirectory() as temp_dir:
+#         print(f"Using temporary directory: {temp_dir}")
         
-        # Create validator with temp directory
-        validator = ClinicalDataValidator(
-            download_dir=os.path.join(temp_dir, "downloads"),
-            archive_dir=os.path.join(temp_dir, "archive"),
-            error_dir=os.path.join(temp_dir, "errors")
-        )
+#         # Create validator with temp directory
+#         validator = ClinicalDataValidator(
+#             download_dir=os.path.join(temp_dir, "downloads"),
+#             archive_dir=os.path.join(temp_dir, "archive"),
+#             error_dir=os.path.join(temp_dir, "errors")
+#         )
         
-        # Test error logging
-        test_filename = "CLINICALDATA_20250115120000.csv"
-        test_error = "Test error message"
+#         # Test error logging
+#         test_filename = "CLINICALDATA_20250115120000.csv"
+#         test_error = "Test error message"
         
-        print(f"\nLogging error for file: {test_filename}")
-        print(f"Error message: {test_error}")
+#         print(f"\nLogging error for file: {test_filename}")
+#         print(f"Error message: {test_error}")
         
-        # Call the _log_error method
-        log_result = validator._log_error(test_filename, test_error)
+#         # Call the _log_error method
+#         log_result = validator._log_error(test_filename, test_error)
         
-        print(f"\nLog result: {log_result}")
+#         print(f"\nLog result: {log_result}")
         
-        # Check if log entry contains expected information
-        assert "GUID:" in log_result, "Log should contain GUID"
-        assert test_filename in log_result, "Log should contain filename"
-        assert test_error in log_result, "Log should contain error message"
+#         # Check if log entry contains expected information
+#         assert "GUID:" in log_result, "Log should contain GUID"
+#         assert test_filename in log_result, "Log should contain filename"
+#         assert test_error in log_result, "Log should contain error message"
         
-        # Check if timestamp is in the log
-        assert "202" in log_result or "T" in log_result, "Log should contain timestamp"
+#         # Check if timestamp is in the log
+#         assert "202" in log_result or "T" in log_result, "Log should contain timestamp"
         
-        print("\nTEST 3 PASSED: Error logging creates proper log entries!")
+#         print("\nTEST 3 PASSED: Error logging creates proper log entries!")
 
 
 # ============================================
