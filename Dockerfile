@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.9
 
 # Install system dependencies for Tkinter
 RUN apt-get update && apt-get install -y \

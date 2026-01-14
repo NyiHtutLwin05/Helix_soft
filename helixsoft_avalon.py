@@ -54,7 +54,7 @@ import requests
 class UUIDGenerator:
     """Handles UUID generation using external API with fallback"""
     
-    @staticmethod
+    
     def get_guid_from_api():
         """Fetch a UUID v4 from external API with error handling"""
         try:

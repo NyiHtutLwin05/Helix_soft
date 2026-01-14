@@ -1,8 +1,3 @@
-"""
-Simple unittest file for Clinical Data Processor
-Tests 3 key functions using pytest
-"""
-
 import pytest
 import tempfile
 import os
