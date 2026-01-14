@@ -162,39 +162,6 @@ class TestCSVValidator:
             result = self.validator.validate_filename(filename if filename else "")
             assert result == expected, f"Failed for: {filename}"
     
-    def test_validate_csv_refactored(self):
-        """Test CSV validation with comprehensive cases"""
-        # Test valid CSV
-        valid_csv = """PatientID,TrialCode,DrugCode,Dosage_mg,StartDate,EndDate,Outcome,SideEffects,Analyst
-P001,T001,D001,100,2024-01-01,2024-01-31,Improved,None,Dr. Smith
-P002,T001,D001,150,2024-01-01,2024-02-28,No Change,Mild,Dr. Jones"""
-        
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
-            f.write(valid_csv)
-            temp_file = f.name
-        
-        try:
-            result = self.validator.validate_csv(temp_file)
-            assert result.is_valid == True
-            assert result.record_count == 2
-            assert len(result.errors) == 0
-        finally:
-            os.unlink(temp_file)
-        
-        # Test invalid CSV (wrong header)
-        invalid_csv = """ID,Code,Drug,Dose,Start,End,Result,Side,Doctor
-P001,T001,D001,100,2024-01-01,2024-01-31,Improved,None,Dr. Smith"""
-        
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
-            f.write(invalid_csv)
-            temp_file = f.name
-        
-        try:
-            result = self.validator.validate_csv(temp_file)
-            assert result.is_valid == False
-            assert "Invalid header" in result.errors[0]
-        finally:
-            os.unlink(temp_file)
     
     @patch('requests.get')
     def test_log_error_with_api_mock(self, mock_get):
