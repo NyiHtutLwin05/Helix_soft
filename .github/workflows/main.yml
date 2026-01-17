@@ -35,8 +35,7 @@ jobs:
 
       - name: Run tests
         run: |
-          python -m pytest --collect-only  
-          python -m pytest tests/ -v  
+          python -m pytest TDD/ guid_integration/ unittest/ -v
 
   build-and-push:
     name: Build and Push Docker Image
