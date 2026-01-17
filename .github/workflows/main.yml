@@ -6,11 +6,11 @@ on:
     tags: [ 'v*' ]
   pull_request:
     branches: [ main, master ]
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch: 
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: helixsoft-avalon  # Your image name
+  IMAGE_NAME: helixsoft-avalon  
 
 jobs:
   test:
@@ -35,14 +35,8 @@ jobs:
 
       - name: Run tests
         run: |
-          # Create tests directory if it doesn't exist
-          mkdir -p tests
-          # Run tests if test files exist
-          if [ -f "requirements.txt" ]; then
-            python -m pytest tests/ -v --tb=short || echo "No tests found or tests failed"
-          else
-            echo "No requirements.txt found, skipping tests"
-          fi
+          python -m pytest --collect-only  
+          python -m pytest tests/ -v  
 
   build-and-push:
     name: Build and Push Docker Image
